@@ -1,0 +1,322 @@
+<% if(isLoggedin) { %>
+    <%- include('../partials/userLoggedinHeader') %>
+        <% }else { %>
+            <%- include('../partials/userHeader') %>
+                <% } %>
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">My Account<span>Shop</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My Account</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="dashboard">
+            <div class="container">
+                <div class="row">
+                    <aside class="col-md-4 col-lg-3">
+                        <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-downloads" role="tab" aria-controls="tab-downloads" aria-selected="false">Downloads</a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Sign Out</a>
+                            </li>
+                        </ul>
+                    </aside><!-- End .col-lg-3 -->
+
+                    <div class="col-md-8 col-lg-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+                                <p><h1 style="color: rgb(157, 149, 137);">welcome..</h1><span class="font-weight-normal text-secondary"><h3 style="color: rgb(245, 191, 126);"><%= user.name %></h3></span>
+                                
+                            </div><!-- .End .tab-pane -->
+
+                            <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+                                <% if(userOrders){%>
+                                    <div role="tabpanel" class="tab-pane" id="tabs-1-2">
+                                        <div class="nk-gap"></div>
+                                        
+                                        <section class="container-fluid">
+                                          <table id="myTable" class="table text-success	">
+                                              <thead>
+                                                <tr>
+                                                  <th scope="col">OrderId</th>
+                                                  <th scope="col">Time</th>
+                                                  <th scope="col">Payment</th>
+                                                  <th scope="col">Status</th>
+                                                  <th scope="col">Actions</th>
+                                                        
+                                                </tr>
+                                              </thead>
+                                              <% for(let key of userOrders){ %>
+                                              <tbody>
+                                                <tr>
+                                                  <td><%= key._id %></td>
+                                                  <td><%= key.createdAt.toDateString() %></td>
+                                                  <td><%= key.payment %></td>
+                                                  <td><%= key.status %></td>
+                                                  <td><a href="/cancelOrder?id=<%= key._id %>" class="btn btn-outline-primary-2">Cancel Order</a><br>
+                                                  <a href="/viewOrder?id=<%= key._id %>" class="btn btn-primary ms-2 ">View Details</a></td>
+                                                </tr>
+                                              </tbody>
+                                              <% } %>
+                                            </table>
+                                      </section>
+              
+              
+                                        <div class="nk-gap"></div>
+                                    </div>
+                                    <%}else{%>
+
+								    	<p>No order has been made yet.</p>
+								    	<a href="/shop" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
+										<%}%>
+                                
+                            </div>
+
+                            <div class="tab-pane fade" id="tab-downloads" role="tabpanel" aria-labelledby="tab-downloads-link">
+                                <form action="/addAddress" method="post" >
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                            <h2 class="checkout-title">New Address</h2><!-- End .checkout-title -->
+                                                
+                                            
+                                                <label>Name *</label>
+                                                 <input type="text" class="form-control" name="firstname" required>
+                                                    
+                                                 <label>Last Name *</label>
+                                                 <input type="text" class="form-control" name="lastname" required>
+
+                                                <label>Country *</label>
+                                                <input type="text" class="form-control" name="country" required>
+                
+                                                <label>Street address *</label>
+                                                <input type="text" class="form-control" placeholder="House number and Street name" name="streetAddress" required>
+                                                
+                
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label>Town / City *</label>
+                                                        <input type="text" class="form-control" name="city" required>
+                                                    </div><!-- End .col-sm-6 -->
+                
+                                                    <div class="col-sm-6">
+                                                        <label>State / County *</label>
+                                                        <input type="text" class="form-control" name="state" required>
+                                                    </div><!-- End .col-sm-6 -->
+                                                </div><!-- End .row -->
+                
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label>Postcode / ZIP *</label>
+                                                        <input type="text" class="form-control" name="zip" required>
+                                                    </div><!-- End .col-sm-6 -->
+                
+                                                    <div class="col-sm-6">
+                                                        <label>Phone *</label>
+                                                        <input type="tel" class="form-control" name="mno" required>
+                                                    </div><!-- End .col-sm-6 -->
+                                                </div><!-- End .row -->
+                
+                                                <button type="submit" class="btn btn-outline-primary-2">
+                                                    <span>Update</span>
+                                                    <i class="icon-long-arrow-right"></i>
+                                                </button>
+                                                    <a href="/dashboard" class="btn btn-outline-primary-2"><span>GO BACK</span><i class="icon-long-arrow-right"></i></a>
+                                        </div><!-- End .col-lg-9 -->
+                                    </div><!-- End .row -->
+                                </form>
+                            </div><!-- .End .tab-pane -->
+
+                            <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+                                <div>
+                                    <a class="nav-link btn  btn-outline-primary-2" id="tab-downloads-link" data-toggle="tab" href="#tab-downloads" role="tab" aria-controls="tab-downloads" aria-selected="false">Add Address<i class="icon-edit"></i></a>
+
+                                </div>
+                                <p>The following addresses will be used on the checkout page by default.</p>
+
+                                <div class="row">
+                                    <%if(userAddress.length>0){
+                                        for(let key of userAddress){%>
+                                    <div class="col-lg-6">
+                                        <div class="card card-dashboard">
+
+                                            <div class="card-body">
+                                                <h3 class="card-title">Billing Address</h3><!-- End .card-title -->
+
+                                                <p><%= key.firstname %> <%=key.lastname%><br>
+                                                    <%= key.address %> <br>
+                                                    <%= key.city %> , <%= key.state %><br>
+                                                    <%= key.country %><br>
+                                                    <%= key.zip %><br>
+                                                    <%= key.phone %><br>
+                                                   
+                                                <!-- <a href="#">Edit <i class="icon-edit"></i></a> -->
+                                                <a href="/deleteAddress?id=<%= key._id %>"><i class="icon-close"></i> delete</a>
+                                            </p>
+                                            </div><!-- End .card-body -->
+                                        </div><!-- End .card-dashboard -->
+                                    </div><!-- End .col-lg-6 -->
+                                    <%}}else{%>
+
+                                    <div class="col-lg-6">
+                                        <div class="card card-dashboard">
+                                            <div class="card-body">
+                                                <h3 class="card-title">Shipping Address</h3><!-- End .card-title -->
+
+                                                <p>You have not set up this type of address yet.<br>
+                                                <a href="#">Edit <i class="icon-edit"></i></a></p>
+                                            </div><!-- End .card-body -->
+                                        </div><!-- End .card-dashboard -->
+                                    </div><!-- End .col-lg-6 -->
+                                    <%}%>
+                                </div><!-- End .row -->
+                            </div><!-- .End .tab-pane -->
+
+                            <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+                                <form action="/editUser" method="post">
+                                    <label>Name *</label>
+                                    <input type="text" class="form-control" name="name" value="<%=user.name%>">
+                                    
+                                    <label>Email address *</label>
+                                    <input type="email" class="form-control" name="email" value="<%=user.email%>">
+
+                                    <label>Mobile Number *</label>
+		        					<input type="text" class="form-control" name="mobile" value="<%=user.mobile%>">
+
+                                    <label>Current password (leave blank to leave unchanged)</label>
+                                    <input type="password" class="form-control" name="password1">
+
+                                    <label>New password (leave blank to leave unchanged)</label>
+                                    <input type="password" id="passwords" class="form-control" name="password2">
+
+                                    <label>Confirm new password</label>
+                                    <input type="password" id="conpasswords" class="form-control mb-2" name="password3">
+
+                                    <button type="submit" class="btn btn-outline-primary-2">
+                                        <span>SAVE CHANGES</span>
+                                        <i class="icon-long-arrow-right"></i>
+                                    </button>
+                                </form>
+                            </div><!-- .End .tab-pane -->
+                        </div>
+                    </div><!-- End .col-lg-9 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .dashboard -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+
+<script type="text/javascript">
+    function validation() {
+    //   var user = document.getElementById('name').value;
+    //   var email = document.getElementById('email').value;
+    //   var mno = document.getElementById('mno').value;
+      var password2 = document.getElementById('password2').value;
+      var password3 = document.getElementById('password3').value;
+
+
+
+
+    //   if (user == "") {
+    //     document.getElementById('names').innerHTML =
+    //       "Please fill the username field";
+    //     return false;
+    //   }
+    //   if ((user.length <= 2) || (user.length > 20)) {
+    //     document.getElementById('names').innerHTML =
+    //       "User length must be between 3 and 20";
+    //     return false;
+    //   }
+    //   if (!isNaN(user)) {
+    //     document.getElementById('names').innerHTML =
+    //       "Only characters are allowed";
+    //     return false;
+    //   }
+
+
+    //   if (email == "") {
+    //     document.getElementById('emails').innerHTML =
+    //       "please fill the email field";
+    //     return false;
+    //   }
+    //   if (email.indexOf('@') <= 0) {
+    //     document.getElementById('emails').innerHTML =
+    //       "Invalid '@' position ";              
+    //     return false;
+    //   }
+    //   if ((email.charAt(email.length - 4) != '.') &&
+    //     (email.charAt(email.length - 3) != '.')) {
+    //     document.getElementById('emails').innerHTML =
+    //       "Invalid '.' position ";
+    //     return false;
+    //   }
+
+    //   if (mno == "") {
+    //     document.getElementById('mobiles').innerHTML =
+    //       "please fill the mobile number field";
+    //     return false;
+    //   }
+    //   if (isNaN(mno)) {
+    //     document.getElementById('mobiles').innerHTML =
+    //       "Must write digits only not characters";
+    //     return false;
+    //   }
+    //   if (mno.length != 10) {
+    //     document.getElementById('mobiles').innerHTML =
+    //       "Must be 10 digits ";
+    //     return false;
+    //   }
+
+
+      if (password == "") {
+        document.getElementById('passwords').innerHTML =
+          "please fill the password field";
+        return false;
+      }
+      if ((password.length < 5) || (password.length > 10)) {
+        document.getElementById('passwords').innerHTML =
+          "Password length must be between 5 and 10";
+        return false;
+      }
+
+      if (password2 == "") {
+        document.getElementById('conpasswords').innerHTML =
+          "please fill the confirm password field";
+        return false;
+      }
+      if (password2 != password) {
+        document.getElementById('conpasswords').innerHTML =
+          "Password are not matching";
+        return false;
+      }
+    }
+  </script>
+
+<% if(isLoggedin) { %>
+    <%- include('../partials/userLoggedinFooter') %>
+        <% }else { %>
+            <%- include('../partials/userFooter') %>
+                <% } %>

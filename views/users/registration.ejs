@@ -1,0 +1,175 @@
+<%- include('../partials/userHeader') %>
+
+
+
+
+
+
+
+
+
+  <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17"
+    style="background-image: url('assets/images/backgrounds/slide-2.jpg')">
+    <div class="container">
+      <div class="form-box">
+        <div class="form-tab">
+          <ul class="nav nav-pills nav-fill" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab"
+                aria-controls="register-2" aria-selected="true">Register</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <!-- <div class="tab-pane fade" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2"> -->
+            <div class="tab-pane fade show active" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
+            </div>
+            <form action="/register" method="post">
+              <div class="form-group">
+                <label for="singin-email-2">Your Name*</label>
+                <input type="text" class="form-control" name="name" placeholder="Enter name" id="name" />
+                <span id="names" class="text-danger"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="singin-email-2">Your Email*</label>
+                <input type="email" class="form-control" name="email" placeholder="Enter email" id="email" />
+                <span id="emails" class="text-danger"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="singin-email-2">Your Mobile Number*</label>
+                <input type="text" class="form-control" name="mno" placeholder="Enter mobile" id="mno" />
+                <span id="mobiles" class="text-danger"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="singin-password-2">Your Password *</label>
+                <input type="password" class="form-control" id="password" name="password"
+                  placeholder="Enter password" />
+                <span id="passwords" class="text-danger"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="singin-password-2">Confirm Password *</label>
+                <input type="password" class="form-control" id="password2" name="password2"
+                  placeholder="Enter password" />
+                <span id="conpasswords" class="text-danger"></span>
+              </div>
+              <% if (typeof message !=='undefined' ){ %>
+                <p style="color: red">
+                  <%= message %>
+                </p>
+                <% }%> <br /><br />
+                  <div class="form-footer">
+                    <button type="submit" class="btn btn-outline-primary-2" name="submit" onclick="return validation()">
+                      <span>Register</span>
+                      <i class="icon-long-arrow-right"></i>
+                    </button>
+
+                    <!-- <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="signin-remember-2">
+                      <label class="custom-control-label" for="signin-remember-2">Remember Me</label>
+                    </div>End .custom-checkbox -->
+
+                    <a href="#" class="forgot-link">Forgot Your Password?</a>
+                  </div><!-- End .form-footer -->
+            </form>
+
+          </div><!-- .End .tab-pane -->
+        </div><!-- End .tab-content -->
+      </div><!-- End .form-tab -->
+    </div><!-- End .form-box -->
+  </div><!-- End .container -->
+  </div><!-- End .login-page section-bg -->
+  </main><!-- End .main -->
+
+  <script type="text/javascript">
+    function validation() {
+      var user = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var mno = document.getElementById('mno').value;
+      var password = document.getElementById('password').value;
+      var password2 = document.getElementById('password2').value;
+
+
+
+
+      if (user == "") {
+        document.getElementById('names').innerHTML =
+          "Please fill the username field";
+        return false;
+      }
+      if ((user.length <= 2) || (user.length > 20)) {
+        document.getElementById('names').innerHTML =
+          "User length must be between 3 and 20";
+        return false;
+      }
+      if (!isNaN(user)) {
+        document.getElementById('names').innerHTML =
+          "Only characters are allowed";
+        return false;
+      }
+
+
+      if (email == "") {
+        document.getElementById('emails').innerHTML =
+          "please fill the email field";
+        return false;
+      }
+      if (email.indexOf('@') <= 0) {
+        document.getElementById('emails').innerHTML =
+          "Invalid '@' position ";              
+        return false;
+      }
+      if ((email.charAt(email.length - 4) != '.') &&
+        (email.charAt(email.length - 3) != '.')) {
+        document.getElementById('emails').innerHTML =
+          "Invalid '.' position ";
+        return false;
+      }
+
+      if (mno == "") {
+        document.getElementById('mobiles').innerHTML =
+          "please fill the mobile number field";
+        return false;
+      }
+      if (isNaN(mno)) {
+        document.getElementById('mobiles').innerHTML =
+          "Must write digits only not characters";
+        return false;
+      }
+      if (mno.length != 10) {
+        document.getElementById('mobiles').innerHTML =
+          "Must be 10 digits ";
+        return false;
+      }
+
+
+      if (password == "") {
+        document.getElementById('passwords').innerHTML =
+          "please fill the password field";
+        return false;
+      }
+      if ((password.length < 5) || (password.length > 10)) {
+        document.getElementById('passwords').innerHTML =
+          "Password length must be between 5 and 10";
+        return false;
+      }
+
+      if (password2 == "") {
+        document.getElementById('conpasswords').innerHTML =
+          "please fill the confirm password field";
+        return false;
+      }
+      if (password2 != password) {
+        document.getElementById('conpasswords').innerHTML =
+          "Password are not matching";
+        return false;
+      }
+    }
+  </script>
+
+
+
+
+  <%- include('../partials/userFooter') %>

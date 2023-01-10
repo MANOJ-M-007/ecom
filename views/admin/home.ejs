@@ -1,0 +1,348 @@
+<%- include('../partials/adminHeader') %>
+
+
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="assets/js/bootstrap-checkbox-radio.js"></script>
+
+    <!--  Charts Plugin -->
+    <script src="assets/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="assets/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+    <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+    <script src="assets/js/paper-dashboard.js"></script>
+
+    <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+    <script src="assets/js/demo.js"></script>
+
+
+    <div class="wrapper">
+        <div class="sidebar" data-background-color="white" data-active-color="warning">
+
+            <!--
+            Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
+            Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
+        -->
+
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                    <img src="/admin/assets/logo (1).png" alt="Molla Logo" width="105" height="45">
+                </div>
+
+                <ul class="nav">
+                    <li class="active">
+                        <a href="/admin">
+                            <i class="ti-panel"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/admin/adminUser">
+                            <!-- <i class='fas fa-users'></i> -->
+                            <i class="ti-view-list-alt"></i>
+                            <p>User List</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/loadCategory">
+                            <i class="ti-layout-column3"></i>
+                            <!-- <i class="ti-text"></i> -->
+                            <p>Category</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/adminProduct">
+                            <i class="ti-shopping-cart-full"></i>
+                            <!-- <i class="ti-view-list-alt"></i> -->
+                            <p>Products</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/admin/loadOffer">
+                            <i class="ti-gift"></i>
+                            <p>Offer</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/loadBanners">
+                            <i class="ti-map"></i>
+                            <p>Banners</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/adminOrder">
+                            <i class="ti-bell"></i>
+                            <p>Orders</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/salesReport">
+                            <i class="ti-download"></i>
+                            <p>Sales Report</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="main-panel">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar bar1"></span>
+                            <span class="icon-bar bar2"></span>
+                            <span class="icon-bar bar3"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Dashboard</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="/admin/adminlogout">
+                                    <i class="fa fa-power-off m-r-5 m-l-5"></i><br>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="icon-big icon-warning text-center">
+                                                <i class="ti-user"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-7">
+                                            <div class="numbers">
+                                                <p>Users</p>
+                                                <%=usersCount%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="footer">
+                                        <hr />
+                                        <div class="stats">
+                                            <i class="ti-reload"></i> total users
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="icon-big icon-success text-center">
+                                                <i class="ti-layout-column3"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-7">
+                                            <div class="numbers">
+                                                <p>Categories</p>
+                                                <%=totalCategory%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="footer">
+                                        <hr />
+                                        <div class="stats">
+                                            <i class="ti-calendar"></i> active categories
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="icon-big icon-danger text-center">
+                                                <i class="ti-shopping-cart"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-7">
+                                            <div class="numbers">
+                                                <p>Total Products</p>
+                                                <%=productCount%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="footer">
+                                        <hr />
+                                        <div class="stats">
+                                            <i class="ti-timer"></i> whole count
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="icon-big icon-info text-center">
+                                                <i class="ti-gift"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-7">
+                                            <div class="numbers">
+                                                <p>Total Orders</p>
+                                                <%=showCount%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="footer">
+                                        <hr />
+                                        <div class="stats">
+                                            <i class="ti-reload"></i> total orders 
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="card">
+                                <canvas id="myPie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card">
+                                <canvas id="myChart"></canvas>
+                                
+                            </div>
+                        </div>
+                        <input type="hidden" id="pname" value="<%=pname%>">
+                        <input type="hidden" id="pcount" value="<%=pcount%>">
+                        <input type="hidden" id="category" value="<%=category%>">
+                        <input type="hidden" id="count" value="<%=count%>">
+                    </div>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                    <script>
+                        const ctx = document.getElementById('myChart');
+                        const name = document.getElementById('pname');
+                        const count = document.getElementById('pcount');
+                        const pnames = name.value.split(',');
+                        const pcounts = count.value.split(',');
+
+
+                        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: pnames,
+                                datasets: [{
+                                    label: 'sales',
+                                    data: pcounts,
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+
+
+                        const ctx1 = document.getElementById('myPie');
+                        const name1 = document.getElementById('category');
+                        const count1 = document.getElementById('count');
+                        const category = name1.value.split(',');
+                        const countPie = count1.value.split(',');
+
+
+                        new Chart(ctx1, {
+                            type: 'pie',
+                            data: {
+                                labels: category,
+                                datasets: [{
+                                    label: 'sales',
+                                    data: countPie,
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Email Statistics</h4>
+                            <p class="category">Last Campaign Performance</p>
+                        </div>
+                        <div class="content">
+                            <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+
+                            <div class="footer">
+                                <div class="chart-legend">
+                                    <i class="fa fa-circle text-info"></i> Open
+                                    <i class="fa fa-circle text-danger"></i> Bounce
+                                    <i class="fa fa-circle text-warning"></i> Unsubscribe
+                                </div>
+                                <hr>
+                                <div class="stats">
+                                    <i class="ti-timer"></i> Campaign sent 2 days ago
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+
+                </div>
+            </div> -->
+        </div>
+    </div>
+    </footer>
+
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+    <%- include('../partials/adminFooter') %>

@@ -1,0 +1,346 @@
+<% if(isLoggedin) { %>
+    <%- include('../partials/userLoggedinHeader') %>
+        <% }else { %>
+            <%- include('../partials/userHeader') %>
+                <% } %>
+
+
+
+                    <main class="main">
+                        <div class="page-header text-center"
+                            style="background-image: url('assets/images/page-header-bg.jpg')">
+                            <div class="container">
+                                <h1 class="page-title">Checkout<span>Shop</span></h1>
+                            </div><!-- End .container -->
+                        </div><!-- End .page-header -->
+                        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                            <div class="container">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                                </ol>
+                            </div><!-- End .container -->
+                        </nav><!-- End .breadcrumb-nav -->
+
+                        <div class="page-content">
+                            <div class="checkout">
+                                <div class="container">
+                                    <div class="checkout-discount">
+                                        <form action="/addCoupon" method="post">
+                                            <input type="text" class="form-control" name="offer" required
+                                                id="checkout-discount-input" placeholder="Have a coupon? Click here to enter your code">
+                                            <!-- <label for="checkout-discount-input" class="text-truncate">Have a coupon?
+                                                <span>Click here to enter your code</span></label>-->
+                                            <button class="form-control btn btn-sm btn-minwidth-sm btn-outline-primary"> 
+                                                Apply<i class="icon-long-arrow-right"></i></button>
+                                        </form>
+                                        <% if(nocoupon) { %>
+                                            <p style="color: red">INVALID COUPON</p>
+                                            <% } %>
+                                            <% if(nocouponPrice) { %>
+                                                <p style="color: red">Needed minimum ammount to apply this coupon </p>
+                                                <% } %>
+                                    </div><!-- End .checkout-discount -->
+                                    <form action="/checkout" method="post">
+                                        <div class="row">
+                                            <div class="col-lg-9">
+                                                <h2 class="checkout-title">Billing Details</h2>
+                                                <!-- End .checkout-title -->
+                                                <div class="row">
+                                                    <%if(addSelect!=null){%>
+                                                        <div class="col-sm-6">
+                                                            <label>First Name *</label>
+                                                            <input type="text" name="firstname" class="form-control"
+                                                                value="<%= addSelect.firstname %>" required>
+                                                        </div><!-- End .col-sm-6 -->
+
+                                                        <div class="col-sm-6">
+                                                            <label>Last Name *</label>
+                                                            <input type="text" name="lastname" class="form-control"
+                                                                value="<%= addSelect.lastname %>" required>
+                                                        </div><!-- End .col-sm-6 -->
+                                                </div><!-- End .row -->
+
+                                                <label>Country *</label>
+                                                <input type="text" name="country" class="form-control"
+                                                    value="<%= addSelect.country %>" required>
+
+                                                <label>Address *</label>
+                                                <input type="text" name="address" class="form-control"
+                                                    placeholder="House number and Street name"
+                                                    value="<%= addSelect.address %>" required>
+
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label>Town / City *</label>
+                                                        <input type="text" name="city" class="form-control"
+                                                            value="<%= addSelect.city %>" required>
+                                                    </div><!-- End .col-sm-6 -->
+
+                                                    <div class="col-sm-6">
+                                                        <label>State / County *</label>
+                                                        <input type="text" name="state" class="form-control"
+                                                            value="<%= addSelect.state %>" required>
+                                                    </div><!-- End .col-sm-6 -->
+                                                </div><!-- End .row -->
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label>Postcode / ZIP *</label>
+                                                        <input type="text" name="zip" class="form-control"
+                                                            value="<%= addSelect.zip %>" required>
+                                                    </div><!-- End .col-sm-6 -->
+
+                                                    <div class="col-sm-6">
+                                                        <label>Phone *</label>
+                                                        <input type="tel" name="phone" class="form-control"
+                                                            value="<%= addSelect.phone %>" required>
+                                                    </div><!-- End .col-sm-6 -->
+                                                </div><!-- End .row -->
+                                                <% }else{%>
+                                                    <div class="col-sm-6">
+                                                        <label>First Name *</label>
+                                                        <input type="text" class="form-control" name="firstname"
+                                                            required>
+                                                    </div><!-- End .col-sm-6 -->
+
+                                                    <div class="col-sm-6">
+                                                        <label>Last Name *</label>
+                                                        <input type="text" class="form-control" name="lastname"
+                                                            required>
+                                                    </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+
+                                            <label>Country *</label>
+                                            <input type="text" class="form-control" name="country" required>
+
+                                            <label>Street address *</label>
+                                            <input type="text" class="form-control"
+                                                placeholder="House number and Street name" name="streetAddress"
+                                                required>
+                                            <input type="text" class="form-control"
+                                                placeholder="Appartments, suite, unit etc ..." name="streetAddress2"
+                                                required>
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>Town / City *</label>
+                                                    <input type="text" class="form-control" name="city" required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>State / County *</label>
+                                                    <input type="text" class="form-control" name="state" required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>Postcode / ZIP *</label>
+                                                    <input type="text" class="form-control" name="zip" required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>Phone *</label>
+                                                    <input type="tel" class="form-control" name="phone" required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                            <label>Email address *</label>
+                                            <input type="email" class="form-control" name="email" required>
+
+
+
+                                            <% }%>
+
+                                                <div class="tab-pane" id="tab-address" role="tabpanel"
+                                                    aria-labelledby="tab-address-link">
+                                                    <!-- <a href="#" class=""> Add Address <i class="icon-edit"></i></a> -->
+
+                                                    <p>You can select the following Shipping Address.</p>
+
+
+                                                    <div class="row">
+                                                        <%if(userAddress.length>0){
+                                                            for(let key of userAddress){%>
+                                                            <a href="/checkout?addressid=<%=key._id%>">
+                                                                <div class="col-lg-4">
+                                                                    <a href="/checkout?addressid=<%=key._id%>">
+                                                                        <div class="card card-dashboard">
+
+                                                                            <a href="/checkout?addressid=<%=key._id%>">
+                                                                                <div class="card-body">
+                                                                                    <h3 class="card-title">Shipping
+                                                                                        Address</h3>
+                                                                                    <p>
+                                                                                        <%= key.firstname %>
+                                                                                            <%=key.lastname%><br>
+                                                                                                <%= key.address %> , <%=
+                                                                                                        key.address2 %>
+                                                                                                        <br>
+                                                                                                        <%= key.city %>
+                                                                                                            , <%=
+                                                                                                                key.state
+                                                                                                                %><br>
+                                                                                                                <%= key.country
+                                                                                                                    %>
+                                                                                                                    <br>
+                                                                                                                    <%= key.zip
+                                                                                                                        %>
+                                                                                                                        <br>
+                                                                                                                        <%= key.phone
+                                                                                                                            %>
+                                                                                                                            <br>
+                                                                                                                            <br>
+                                                                                                                            <a href="#">Edit <i class="icon-edit"></i></a> 
+                                                                                                                            <a
+                                                                                                                                href="/deleteaddress?id=<%= key._id %>"><i
+                                                                                                                                    class="icon-close"></i>
+                                                                                                                                delete</a>
+                                                                                    </p>
+                                                                                </div>
+                                                                            </a>
+                                                                            <!-- End .card-body -->
+                                                                        </div>
+                                                                    </a>
+                                                                    <!-- End .card-dashboard -->
+                                                                </div>
+                                                            </a>
+                                                            <!-- End .col-lg-6 -->
+                                                            <%}}else{%>
+
+                                                                <div class="col-lg-6">
+                                                                    <a href="">
+                                                                        <div class="card card-dashboard">
+                                                                            <div class="card-body">
+                                                                                <h3 class="card-title">Shipping Address
+                                                                                </h3>
+
+                                                                                <p>You have not set up this type of
+                                                                                    address yet.<br>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                                <%}%>
+                                                    </div><!-- End .row -->
+                                                </div><!-- .End .tab-pane -->
+                                        </div><!-- End .col-lg-9 -->
+                                        <aside class="col-lg-3">
+                                            <% if(id) { %>
+                                                <div class="summary">
+                                                    <h3 class="summary-title">Your Order</h3>
+                                                    <!-- End .summary-title -->
+                                                    <table class="table table-summary">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Product</th>
+                                                                
+                                                                <th>Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <% for(let key of cartProducts.item){ %>
+                                                            <tbody>
+
+                                                                <tr>
+                                                                    <td>
+                                                                        <%= key.productId.name %>  <strong>X</strong> <%= key.qty %>
+                                                                    </td>
+                                                                    
+                                                                    <td> ₹ <%= key.productId.price * key.qty%>
+                                                                    </td>
+                                                                </tr>
+                                                                <% } %>
+
+                                                                    <tr class="summary-subtotal">
+                                                                        <td>Subtotal:</td>
+                                                                        <td>
+                                                                            <% if(id){ %>
+                                                                                ₹ <%= cartProducts.totalPrice %>
+                                                                                    <% } %>
+                                                                        </td>
+                                                                    </tr><!-- End .summary-subtotal -->
+                                                                    <tr>
+                                                                        <td>Shipping:</td>
+                                                                        <td>Free shipping</td>
+                                                                    </tr>
+                                                                    <tr class="">
+                                                                        <td>
+                                                                            Coupon
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= offer.name %>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="">
+                                                                        <td>
+                                                                            Discount
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= offer.discount %>%
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="summary-total">
+                                                                        <td>Total:</td>
+                                                                        <td>
+                                                                            <% if(id){ %>
+                                                                                ₹ <%= couponTotal %>
+                                                                                    <% } %>
+                                                                        </td>
+                                                                    </tr><!-- End .summary-total -->
+                                                            </tbody>
+                                                    </table><!-- End .table table-summary -->
+
+                                                    <div class="accordion-summary" id="accordion-payment">
+                                                        <div class="nk-gap-2"></div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="payment"
+                                                                id="exampleRadios1" value="Cash-on-Dilevery" checked>
+                                                            <label class="form-check-label" for="exampleRadios1">
+                                                                Cash on Dilevery
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="payment"
+                                                                id="exampleRadios2" value="RazorPay">
+                                                            <label class="form-check-label" for="exampleRadios2">
+                                                                RazorPay
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="payment"
+                                                                id="exampleRadios3" value="PayPal">
+                                                            <label class="form-check-label" for="exampleRadios3">
+                                                                PayPal
+                                                            </label>
+                                                        </div>
+
+
+                                                        <button type="submit"
+                                                            class="btn btn-outline-primary-2 btn-order btn-block">
+                                                            <span class="btn-text">Place Order</span>
+                                                            <span class="btn-hover-text">Proceed to Checkout</span>
+                                                        </button>
+                                                    </div><!-- End .summary -->
+                                        </aside><!-- End .col-lg-3 -->
+                                        <% }else{ %>
+                                            <h4>Not Signed in. <br>Signin to access Checkout </h4>
+                                            <a href="/login" class="btn btn-danger ml-2">login</a>
+                                            <div class="nk-gap-2"></div>
+                                            <% } %>
+                                </div><!-- End .row -->
+                                </form>
+                            </div><!-- End .container -->
+                        </div><!-- End .checkout -->
+                        </div><!-- End .page-content -->
+                    </main><!-- End .main -->
+
+<% if(isLoggedin) { %>
+    <%- include('../partials/userLoggedinFooter') %>
+        <% }else { %>
+            <%- include('../partials/userFooter') %>
+                <% } %>
+                    

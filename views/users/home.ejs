@@ -1,0 +1,206 @@
+<% if(isLoggedin) { %>
+    <%- include('../partials/userLoggedinHeader') %>
+        <% }else { %>
+            <%- include('../partials/userHeader') %>
+                <% } %>
+
+                    <!-- <h1>Home</h1> -->
+
+                    <!-- <button>
+    <a href="/register" style="text-decoration: none">Register</a>
+  </button>
+  <button>
+    <a href="/login" style="text-decoration: none">Login</a>
+  </button> -->
+                    <main class="main">
+                        <div class="container">
+                            <div class="intro-slider-container slider-container-ratio mb-2">
+                                </a>
+                                <% if(banners.length> 0){
+                                    for(let i=0; i<banners.length;i++ ){%>
+                                        <div class="intro-slider owl-carousel owl-simple owl-light owl-nav-inside"
+                                            data-toggle="owl" data-owl-options='{"nav": false}'>
+                                            <div class="intro-slide" data-ride="carousel">
+                                                <figure class="slide-image">
+                                                    <picture>
+                                                        <source media="(max-width: 480px)"
+                                                            srcset="/admin/assets/uploads/<%=banners[i].bannerImage[0] %>">
+                                                        <img src="/admin/assets/uploads/<%=banners[i].bannerImage[0] %>"
+                                                            alt="Image Desc">
+                                                    </picture>
+                                                </figure><!-- End .slide-image -->
+
+                                                <div class="intro-content">
+                                                    <h3 class="intro-subtitle">Deals and Promotions</h3>
+                                                    <h1 class="intro-title text-white">Sneakers & Athletic Shoes</h1>
+
+                                                    <div class="intro-price text-white">from ₹1000</div>
+
+                                                    <a href="/shop" class="btn btn-white-primary btn-round">
+                                                        <span>SHOP NOW</span>
+                                                        <i class="icon-long-arrow-right"></i>
+                                                    </a>
+                                                </div>
+                                            </div><!-- End .intro-slide -->
+
+                                            <div class="intro-slide">
+                                                <figure class="slide-image">
+                                                    <picture>
+                                                        <source media="(max-width: 480px)"
+                                                            srcset="/admin/assets/uploads/<%=banners[i].bannerImage[1] %>">
+                                                        <img src="/admin/assets/uploads/<%=banners[i].bannerImage[1] %>"
+                                                            alt="Image Desc">
+                                                    </picture>
+                                                </figure><!-- End .slide-image -->
+
+                                                <div class="intro-content">
+                                                    <h3 class="intro-subtitle">Trending Now</h3>
+                                                    <h1 class="intro-title text-white">This Week's Most Wanted</h1>
+
+                                                    <div class="intro-price text-white">from ₹1000</div>
+
+                                                    <a href="/shop" class="btn btn-white-primary btn-round">
+                                                        <span>SHOP NOW</span>
+                                                        <i class="icon-long-arrow-right"></i>
+                                                    </a>
+                                                </div>
+                                            </div><!-- End .intro-slide -->
+
+                                            <div class="intro-slide">
+                                                <figure class="slide-image">
+                                                    <picture>
+                                                        <source media="(max-width: 480px)"
+                                                            srcset="/admin/assets/uploads/<%=banners[i].bannerImage[2] %>">
+                                                        <img src="/admin/assets/uploads/<%=banners[i].bannerImage[2] %>"
+                                                            alt="Image Desc">
+                                                    </picture>
+                                                </figure><!-- End .slide-image -->
+
+                                                <div class="intro-content">
+                                                    <h3 class="intro-subtitle text-white">Deals and Promotions</h3>
+                                                    <!-- End .h3 intro-subtitle -->
+                                                    <h1 class="intro-title text-white">Can’t-miss Clearance:</h1>
+                                                    <!-- End .intro-title -->
+
+                                                    <div class="intro-price text-white">starting at 10% off</div>
+                                                    <!-- End .intro-price -->
+
+                                                    <a href="/shop" class="btn btn-white-primary btn-round">
+                                                        <span>SHOP NOW</span>
+                                                        <i class="icon-long-arrow-right"></i>
+                                                    </a>
+                                                </div><!-- End .intro-content -->
+                                            </div><!-- End .intro-slide -->
+                                            <%}}%>
+                                        </div><!-- End .intro-slider owl-carousel owl-simple -->
+                                        <span class="slider-loader"></span><!-- End .slider-loader -->
+                            </div><!-- End .intro-slider-container -->
+                        </div><!-- End .container -->
+
+                        <div class="bg-light pt-5 pb-10 mb-3">
+                            <div class="container">
+                                <div class="heading heading-center mb-3">
+                                    <h2 class="title-lg">Top Products</h2><!-- End .title -->
+                                </div><!-- End .heading -->
+
+                                <div class="tab-content tab-content-carousel">
+                                    <div class="tab-pane tab-pane-shadow p-0 fade show active" id="new-all-tab"
+                                        role="tabpanel" aria-labelledby="new-all-link">
+                                        <div class="owl-carousel owl-simple carousel-equal-height" data-toggle="owl"
+                                            data-owl-options='{
+                                    "nav": false, 
+                                    "dots": true,
+                                    "margin": 0,
+                                    "loop": false,
+                                    "responsive": {
+                                        "0": {
+                                            "items":2
+                                        },
+                                        "480": {
+                                            "items":2
+                                        },
+                                        "768": {
+                                            "items":3
+                                        },
+                                        "992": {
+                                            "items":4
+                                        },
+                                        "1200": {
+                                            "items":4,
+                                            "nav": true
+                                        }
+                                    }
+                                }'>
+                                            <% if(products.length> 0){
+                                                for(let key of products){
+                                                %>
+                                                <% if(key.rating==5 && key.is_available==1) { %>
+
+
+                                                    <div class="product product-3 text-center">
+                                                        <figure class="product-media">
+                                                            <span class="product-label label-primary">Sale</span>
+                                                             
+                                                            <a href="product.html">
+                                                                <img src="/admin/assets/uploads/<%= key.image[0] %>"
+                                                                    alt="Product image" class="product-image">
+                                                            </a>
+
+                                                            <div class="product-action-vertical">
+                                                            
+                                                            <button onclick="addToWishlist('<%=key._id%>')" class="btn-product-icon btn-wishlist  border-0 btn-expandable"><span>add to wishlist</span></button>
+                                                           </div>
+                                                        </figure><!-- End .product-media -->
+
+                                                        <div class="product-body">
+                                                            <div class="product-cat">
+
+                                                            </div><!-- End .product-cat -->
+                                                            <h3 class="product-title"><a href="product.html">
+                                                                    <%= key.name %>
+                                                                </a></h3><!-- End .product-title -->
+                                                            <div class="product-price">
+                                                                <span class="new-price">Now <%= key.price %></span>
+                                                                <span class="old-price">$84.00</span>
+                                                            </div><!-- End .product-price -->
+                                                        </div><!-- End .product-body -->
+
+                                                        <div class="product-footer">
+                                                            <div class="nk-product-rating" style="color: gold;"
+                                                                data-rating="<%= key.rating %>">
+                                                                <% for(let count=0; count<key.rating; count++) { %>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <% } %>
+                                                            </div>
+                                                            <div class="nk-gap-1"></div>
+                                                            
+   
+                                                           <div class="product-action action-icon-top">
+                                                               <%if(key.stock==0){%>
+                                                                   <a href="" class="btn-product icon-info-circle"><span>Out of Stock</span></a>
+                                                                   <%  }else{%>
+                                                                       <button onclick="addToCart('<%=key._id%>')" class="btn-product btn-cart border-0 btn-outline-primary" > <span>add to cart</span></button>
+                                                               <%}%>
+   
+                                                               
+                                                           </div><!-- End .product-action -->
+                                                        </div><!-- End .product-footer -->
+                                                    </div><!-- End .product -->
+                                                    <% }%>
+                                                        <% } %>
+                                                            <% }else { %>
+                                                                <h1>No products in Database</h1>
+                                                                <% } %>
+                                        </div><!-- End .owl-carousel -->
+                                    </div><!-- .End .tab-pane -->
+                                </div><!-- End .tab-content -->
+                            </div><!-- End .container -->
+                        </div><!-- End .bg-light -->
+                        <div class="mb-5"></div><!-- End .mb5 -->
+                    </main><!-- End .main -->
+
+<% if(isLoggedin) { %>
+    <%- include('../partials/userLoggedinFooter') %>
+        <% }else { %>
+            <%- include('../partials/userFooter') %>
+                <% } %>

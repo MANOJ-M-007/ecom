@@ -1,0 +1,228 @@
+<%- include('../partials/adminHeader') %>
+
+<div class="wrapper">
+	<div class="sidebar" data-background-color="white" data-active-color="warning">
+
+    <!--
+		Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
+		Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
+	-->
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <img src="/admin/assets/logo (1).png" alt="Molla Logo" width="105" height="45">
+            </div>
+
+            <ul class="nav">
+                <li>
+                    <a href="/admin">
+                        <i class="ti-panel"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                
+                <li class="active">
+                    <a href="/admin/adminUser">
+                        <!-- <i class='fas fa-users'></i> -->
+                        <i class="ti-view-list-alt"></i>
+                        <p>User List</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/loadCategory">
+                        <i class="ti-layout-column3"></i>
+                        <!-- <i class="ti-text"></i> -->
+                      <p>Category</p>
+                    </a>
+                  </li>
+                <li>
+                    <a href="/admin/adminProduct">
+                        <i class="ti-shopping-cart-full"></i>
+                        <!-- <i class="ti-view-list-alt"></i> -->
+                        <p>Products</p>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/admin/loadOffer">
+                        <i class="ti-gift"></i>
+                        <p>Offer</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/loadBanners">
+                        <i class="ti-map"></i>
+                        <p>Banners</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/adminOrder">
+                        <i class="ti-bell"></i>
+                        <p>Orders</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/salesReport">
+                        <i class="ti-download"></i>
+                        <p>Sales Report</p>
+                    </a>
+                  </li>
+				
+            </ul>
+    	</div>
+    </div>
+
+    <div class="main-panel">
+		<nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar bar1"></span>
+                    <span class="icon-bar bar2"></span>
+                    <span class="icon-bar bar3"></span>
+                </button>
+                <a class="navbar-brand" href="#">Users List</a>
+              </div>
+              <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                  <li>
+                    <a href="/admin/adminlogout">
+                      <i class="fa fa-power-off m-r-5 m-l-5"></i><br>
+                    </a>
+                  </li>
+                </ul>
+    
+              </div>
+            </div>
+          </nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">List of Users Who are Signed In</h4>
+                            </div>
+                            <div class="table-responsive upgrade-btn">
+                                <table class="table v-middle table-striped" id="usertable">
+                                    <thead>
+                                        <th class="center">SI NO</th>
+                                    	<th >USER</th>
+                                    	<th >E-MAIL</th>
+                                    	<th >MOBILE NO</th>
+                                    	<th >STATUS</th>
+                                        <th >ACTION</th>
+                                    </thead>
+                                    <tbody>
+                                        <% if( users.length> 0){ %>
+                                            <% for(let i=1;i <=users.length; i++){ %>
+                                        <tr>
+                                            <!-- serial no -->
+                                        	<td><%= i %></td>
+                                        	<td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="icon-container">
+                                                        <h4><span class="ti-user"></span><span class="icon-name"><%= users[i-1].name %></span></h4>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </td>
+                                            <!-- user email -->
+                                        	<td>
+                                                <%= users[i-1].email %>
+                                            </td>
+                                            <!-- user mobile no -->
+                                            <td>
+                                                <%= users[i-1].mobile %>
+                                            </td>
+                                            <!-- for block a user and unblock -->
+                                        	<td>
+                                                <% if(users[i-1].is_verified) { %>
+                                                    <p class="text-success">Unblocked</p>
+                                                    
+                                                    <% } else { %>
+                                                        <p class="text-danger">Blocked</p>
+                                                        
+                                                        <% } %>
+                                                            
+                                            </td>
+                                        	<td>
+                                                <!-- Default switch -->
+
+                                                <% if(users[i-1].is_verified) { %>
+                                                    <a class="btn btn-danger text-white delete" style="width: 90px;"
+                                                        href="/admin/block-user?id=<%= users[i-1]._id %> "> Block </a>
+                                                    <% } else { %>
+                                                        <a class="btn btn-info delete" style="width: 90px;"
+                                                            href="/admin/block-user?id=<%= users[i-1]._id %> ">Unblock</a>
+                                                        <% } %>
+                                            </td>
+                                        </tr>
+                                        <% } } else{ %>
+                                            <tr>
+                                                <td colspan="5">Users Not Found</td>
+                                            </tr>
+                                            <% } %>
+                                        
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+</div>
+
+<script>
+    $(".delete").on("click", function(e) {
+      e.preventDefault()
+      var self = $(this)
+      Swal.fire({
+        title: 'Are you sure?',
+        // text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes !'
+      }).then((result) => {
+        if (result.isConfirmed) {
+  
+          location.href = self.attr("href")
+      }
+   })
+  
+    })
+  </script>
+
+<script>
+    $(document).ready( function () {
+    $('#usertable').DataTable();
+    } );
+  </script>
+
+<!-- data table -->
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap.min.js"></script> -->
+
+
+
+</body>
+
+
+
+
+
+<%- include('../partials/adminFooter') %>

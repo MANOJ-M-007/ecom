@@ -1,0 +1,91 @@
+<% if(isLoggedin) { %>
+    <%- include('../partials/userLoggedinHeader') %>
+        <% }else { %>
+            <%- include('../partials/userHeader') %>
+                <% } %>
+
+
+
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Wishlist<span>Shop</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="container">
+            <table class="table table-wishlist table-mobile">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>category</th>
+                        <th>Price</th>
+                        <th>Stock Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% if(id) { %>
+                    <% for(let key of wishlistProducts.item){ %>
+                    <tr>
+                        <td class="product-col">
+                            <div class="product">
+                                <figure class="product-media">
+                                    <a href="/viewProduct?id=<%= key.productId._id %>">
+                                        <img src="/admin/assets/uploads/<%= key.productId.image[0] %>" alt="Product image">
+                                    </a>
+                                </figure>
+
+                                <h3 class="product-title">
+                                    <a href="/viewProduct?id=<%= key.productId._id %>"><%= key.productId.name %></a>
+                                </h3><!-- End .product-title -->
+                            </div><!-- End .product -->
+                        </td>
+                        <td class="category-col"><%= key.productId.category%></td>
+                        <td class="price-col">₹ <%= key.productId.price %></td>
+                        <td class="stock-col"><span class="in-stock">In stock</span></td>
+                        <td class="action-col">
+                            <a href="/addToCartDeleteWishlist?id=<%= key.productId._id %>" class="btn btn-outline-dark">Add TO Cart</a>
+                        </td>
+                        <td class="remove-col"><button class="btn-remove"><a href="/deleteWishlist?id=<%= key.productId._id %>"><i class="icon-close"></i></button></a></td>
+                    </tr>
+                    <% } %>
+                        <% }else{ %>
+                            <h4>Not Signed in. <br> Sign in now!!! </h4>
+                            <a href="/login" class="btn btn-danger ml-2">login</a>
+
+                            <% } %>
+                    
+                </tbody>
+            </table><!-- End .table table-wishlist -->
+            <div class="wishlist-share">
+                <div class="social-icons social-icons-sm mb-2">
+                    <label class="social-label">Share on:</label>
+                    <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                    <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                    <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                    <a href="#" class="social-icon" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                    <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                </div><!-- End .soial-icons -->
+            </div><!-- End .wishlist-share -->
+        </div><!-- End .container -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+
+<% if(isLoggedin) { %>
+    <%- include('../partials/userLoggedinFooter') %>
+        <% }else { %>
+            <%- include('../partials/userFooter') %>
+                <% } %>

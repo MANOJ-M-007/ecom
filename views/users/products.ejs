@@ -1,0 +1,162 @@
+<% if(isLoggedin) { %>
+    <%- include('../partials/userLoggedinHeader') %>
+        <% }else { %>
+            <%- include('../partials/userHeader') %>
+                <% } %>
+
+
+                    <main class="main">
+                        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                            <div class="container d-flex align-items-center">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Products</li>
+                                </ol>
+
+                                <!-- <nav class="product-pager ml-auto" aria-label="Product">
+                                    <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous"
+                                        tabindex="-1">
+                                        <i class="icon-angle-left"></i>
+                                        <span>Prev</span>
+                                    </a>
+
+                                    <a class="product-pager-link product-pager-next" href="#" aria-label="Next"
+                                        tabindex="-1">
+                                        <span>Next</span>
+                                        <i class="icon-angle-right"></i>
+                                    </a>
+                                </nav> -->
+                            </div><!-- End .container -->
+                        </nav><!-- End .breadcrumb-nav -->
+
+                        <div class="page-content">
+                            <div class="container">
+                                <div class="product-details-top">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="product-gallery product-gallery-vertical">
+                                                <div class="row">
+                                                    <figure class="product-main-image">
+                                                        <img id="product-zoom"
+                                                            src="/admin/assets/uploads/<%= product.image[0] %>"
+                                                            data-zoom-image="/admin/assets/uploads/<%= product.image[0] %>"
+                                                            alt="product image">
+                                                        <a href="/admin/assets/uploads/<%= product.image[0] %>"
+                                                            id="btn-product-gallery" class="btn-product-gallery">
+                                                            <i class="icon-arrows"></i>
+                                                        </a>
+                                                    </figure><!-- End .product-main-image -->
+
+                                                    <div id="product-zoom-gallery" class="product-image-gallery">
+                                                        <a class="product-gallery-item active"
+                                                            href="/admin/assets/uploads/<%= product.image[0] %>"
+                                                            data-image="/admin/assets/uploads/<%= product.image[0] %>"
+                                                            data-zoom-image="/admin/assets/uploads/<%= product.image[0] %>">
+                                                            <img src="/admin/assets/uploads/<%= product.image[0] %>"
+                                                                alt="product side">
+                                                        </a>
+
+                                                        <a class="product-gallery-item"
+                                                            href="/admin/assets/uploads/<%= product.image[1] %>"
+                                                            data-image="/admin/assets/uploads/<%= product.image[1] %>"
+                                                            data-zoom-image="/admin/assets/uploads/<%= product.image[1] %>">
+                                                            <img src="/admin/assets/uploads/<%= product.image[1] %>"
+                                                                alt="product cross">
+                                                        </a>
+
+                                                        <a class="product-gallery-item"
+                                                            href="/admin/assets/uploads/<%= product.image[2] %>"
+                                                            data-image="/admin/assets/uploads/<%= product.image[2] %>"
+                                                            data-zoom-image="/admin/assets/uploads/<%= product.image[2] %>">
+                                                            <img src="/admin/assets/uploads/<%= product.image[2] %>"
+                                                                alt="product with model">
+                                                        </a>
+
+                                                        <a class="product-gallery-item"
+                                                            href="/admin/assets/uploads/<%= product.image[3] %>"
+                                                            data-image="/admin/assets/uploads/<%= product.image[3] %>"
+                                                            data-zoom-image="/admin/assets/uploads/<%= product.image[3] %>">
+                                                            <img src="/admin/assets/uploads/<%= product.image[3] %>"
+                                                                alt="product back">
+                                                        </a>
+                                                    </div><!-- End .product-image-gallery -->
+                                                </div><!-- End .row -->
+                                            </div><!-- End .product-gallery -->
+                                        </div><!-- End .col-md-6 -->
+
+                                        <div class="col-md-6">
+                                            <div class="product-details">
+                                                <h1 class="product-title">
+                                                    <%= product.name %>
+                                                </h1><!-- End .product-title -->
+
+                                                <div class="nk-product-rating" style="color:gol;"
+                                                    data-rating="<%= product.rating %>">
+                                                    <% for(let count=0; count<product.rating; count++) { %>
+                                                        <i class="fa fa-star"></i>
+                                                        <% } %>
+                                                </div>
+                                                <div class="nk-gap-1"></div>
+                                                <div class="product-price">
+                                                    ₹.<%= product.price %>
+                                                </div><!-- End .product-price -->
+                                                <div class="details-filter-row details-row-size">
+                                                    <label>Color:</label>
+
+                                                    <div class="product-nav product-nav-thumbs">
+                                                        <a href="#" class="active">
+                                                            <img src="/admin/assets/uploads/<%= product.image[0] %>"
+                                                                alt="product desc">
+                                                        </a>
+                                                    </div><!-- End .product-nav -->
+                                                </div><!-- End .details-filter-row -->
+                                                <div class="details-filter-row details-row-size">
+                                                </div><!-- End .details-filter-row -->
+                                                <div class="details-filter-row details-row-size">
+                                                    <!-- <label for="qty">Qty:</label>
+                                                    <div class="product-details-quantity">
+                                                        <input type="number" id="qty" class="form-control" value="1"
+                                                            min="1" max="10" step="1" data-decimals="0" required> -->
+                                                </div><!-- End .product-details-quantity -->
+                                            </div><!-- End .details-filter-row -->
+
+                                            <div class="product-details-action">
+                                                <%if(product.quantity==0){%>
+                                                    <button class="btn btn-outline-danger disabled">Out of Stock</button>
+                                              <%  }else{%>
+                                                <div class="col-6 col-lg-4 col-xl-2">
+                                                    <div class="btn-wrap">
+                                                        <button onclick="addToCart('<%=product._id%>')" class="btn btn-primary btn-shadow" > <span>add to cart</span></button>
+                                                    </div>
+                                                </div>
+                                            </div><!-- End .product-details-action -->
+                                            <div class="product-details-action">
+                                                <%}%>
+                                                <div class="col-6 col-lg-4 col-xl-2">
+                                                    <div class="btn-wrap">
+                                                        <button onclick="addToWishlist('<%=product._id%>')" class="btn btn-primary btn-shadow"><span>add to wishlist</span></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-details-footer">
+                                                    
+                                            </div>
+                                        </div><!-- End .product-details -->
+                                    </div><!-- End .col-md-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .product-details-top -->
+                        </div><!-- End .product -->
+                    </main><!-- End .main -->
+
+
+
+                    
+
+
+
+                    <% if(isLoggedin) { %>
+                        <%- include('../partials/userLoggedinFooter') %>
+                            <% }else { %>
+                                <%- include('../partials/userFooter') %>
+                                    <% } %>

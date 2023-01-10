@@ -1,0 +1,210 @@
+<% if(isLoggedin) { %>
+    <%- include('../partials/userLoggedinHeader') %>
+        <% }else { %>
+            <%- include('../partials/userHeader') %>
+                <% } %>
+
+                    <main class="main">
+                        <div class="page-header text-center"
+                            style="background-image: url('assets/images/page-header-bg.jpg')">
+                            <div class="container">
+                                <h1 class="page-title">Shop</h1>
+                            </div><!-- End .container -->
+                        </div><!-- End .page-header -->
+                        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+                            <div class="container">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                                    <!-- <li class="breadcrumb-item active" aria-current="page">Grid 3 Columns</li> -->
+                                </ol>
+                            </div><!-- End .container -->
+                        </nav><!-- End .breadcrumb-nav -->
+
+                        <div class="page-content">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <div class="toolbox">
+                                            <div class="toolbox-left">
+                                                <!-- <div class="toolbox-info">
+                                                    Showing <span><9 of 56></span> Products
+                                                </div> -->
+                                            </div><!-- End .toolbox-left -->
+
+                                            <div class="toolbox-right">
+                                                <form class="nk-form nk-form-style-1">
+                                                    <div class="input-group">
+                                                        <input type="text" name="search" class="form-control"
+                                                            placeholder="Search here">
+                                                        <button class="nk-btn nk-btn-color-main-1">
+                                                            <input class="fa fa-search" type="submit" value="search">
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                                
+                                            </div><!-- End .toolbox-right -->
+                                        </div><!-- End .toolbox -->
+
+                                        <div class="products mb-3">
+
+
+                                            <div class="row justify-content-center">
+                                                <!-- block -->
+                                                <% if (products.length> 0){
+                                                    for(let key of products){%>
+                                                    <%if(key.is_available==1){%>
+
+                                                        <div class="col-6 col-md-4 col-lg-4">
+
+                                                            <div class="product product-7 text-center">
+
+                                                                <figure class="product-media">
+                                                                    
+                                                                    <a href="/viewProduct?id=<%= key._id %>">
+                                                                        <img src="/admin/assets/uploads/<%=key.image[0] %>"
+                                                                            alt="Product image" class="product-image">
+                                                                    </a>
+                                                                    <div class="product-action-vertical">
+                                                                        <button onclick="addToWishlist('<%=key._id %>')"
+                                                                            class="btn-product-icon btn-wishlist  border-0 btn-expandable">
+                                                                            <span>add to wishlist</span></button>
+
+                                                                    </div><!-- End .product-action-vertical -->
+
+                                                                    <div class="product-action action-icon-top">
+                                                                        <%if(key.quantity==0){%>
+                                                                            <a href=""
+                                                                                class="btn-product icon-info-circle"><span>Out
+                                                                                    of Stock</span></a>
+                                                                            <% }else{%>
+                                                                                <button
+                                                                                    onclick="addToCart('<%=key._id%>')"
+                                                                                    class="btn-product btn-cart border-0 btn-outline-primary">
+                                                                                    <span>add to cart</span></button>
+                                                                                <%}%>
+
+                                                                                    
+                                                                    </div><!-- End .product-action -->
+                                                                </figure><!-- End .product-media -->
+
+                                                                <div class="product-body">
+                                                                    <div class="product-cat">
+                                                                        <a href="#">
+                                                                            <%= key.catagory %>
+                                                                        </a>
+                                                                    </div><!-- End .product-cat -->
+                                                                    <h3 class="product-title"><a href="product.html">
+                                                                            <%= key.name %>
+                                                                        </a></h3><!-- End .product-title -->
+                                                                    <div class="product-price">
+                                                                        ₹.<%= key.price%>
+
+                                                                    </div><!-- End .product-price -->
+                                                                    <div class="nk-product-rating" style="color:gold;"
+                                                                        data-rating="<%= key.rating %>">
+                                                                        <% for(let count=0; count<key.rating; count++) {
+                                                                            %>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <% } %>
+                                                                    </div>
+                                                                    <div class="nk-gap-1"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <%}%>
+                                                            <% } %>
+                                                                <% }else{%>
+                                                                    <h1>no product in database</h1>
+                                                                    <% } %>
+                                            </div>
+
+                                        </div>
+
+                                        <nav aria-label="Page navigation">
+                                            <ul class="pagination justify-content-center">
+                                                <li class="page-item">
+                                                    <a class="page-link page-link-prev" href="?page=<%= previous %>"
+                                                        aria-label="Previous" tabindex="-1" aria-disabled="true">
+                                                        <span aria-hidden="true"><i
+                                                                class="icon-long-arrow-left"></i></span>Prev
+                                                    </a>
+                                                </li>
+                                                <% for(let i=1; i<=totalPages; i++) { %>
+                                                    <% if(currentPage==i) { %>
+                                                        <li class="page-item active" area-current="page">
+                                                            <a class="page-link" href="?page=<%= i %>">
+                                                                <%= i %>
+                                                            </a>
+                                                        </li>
+                                                        <% } else { %>
+                                                            <li class="page-item" area-current="page">
+                                                                <a class="page-link" href="?page=<%= i %>">
+                                                                    <%= i %>
+                                                                </a>
+                                                            </li>
+                                                            <% } %>
+                                                                <% } %>
+                                                                    <li class="page-item">
+                                                                        <a class="page-link page-link-next"
+                                                                            href="?page=<%= next %>" aria-label="Next">
+                                                                            Next
+                                                                            <span aria-hidden="true"><i
+                                                                                    class="icon-long-arrow-right"></i></span>
+                                                                        </a>
+                                                                    </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <aside class="col-lg-3 order-lg-first">
+                                        <div class="sidebar sidebar-shop">
+                                            <div class="widget widget-clean">
+                                                <label>Filters:</label>
+                                                <a href="#" class="sidebar-filter-clear">Clean All</a>
+                                            </div>
+
+                                            <div class="widget widget-collapsible">
+                                                <h3 class="widget-title">
+                                                    <a data-toggle="collapse" href="#widget-1" role="button"
+                                                        aria-expanded="true" aria-controls="widget-1">
+                                                        Category
+                                                    </a>
+                                                </h3>
+
+                                                <div class="collapse show" id="widget-1">
+                                                    <div class="widget-body">
+
+                                                        <div class="filter-items filter-items-count">
+
+                                                            <% if (cat.length> 0){ %>
+                                                                <% for(let i=1;i<=cat.length;i++){%>
+
+                                                                    <div class="filter-item">
+                                                                        <div class="active">
+                                                                            <a href="/shop?id=<%=cat[i-1]._id%>">
+                                                                                <%= cat[i-1].name%>
+                                                                            </a>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+
+                                                                    <% }}else{%>
+                                                                        <h3>no product in database</h3>
+                                                                        <% } %>
+
+                                                        </div><!-- End .filter-items -->
+                                                    </div><!-- End .widget-body -->
+                                                </div><!-- End .collapse -->
+                                            </div><!-- End .widget -->
+                                        </div><!-- End .sidebar sidebar-shop -->
+                                    </aside><!-- End .col-lg-3 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .container -->
+                        </div><!-- End .page-content -->
+                    </main><!-- End .main -->
+
+                    <% if(isLoggedin) { %>
+                        <%- include('../partials/userLoggedinFooter') %>
+                            <% }else { %>
+                                <%- include('../partials/userFooter') %>
+                                    <% } %>
