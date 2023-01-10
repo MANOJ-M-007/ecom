@@ -12,7 +12,6 @@ let adminSession = false || {}
 let orderType = 'all';
 
 const path = require('path')
-// const multer = require('multer')
 const { CLIENT_RENEG_LIMIT } = require('tls')
 
 const adminloadLogin = async (req, res) => {
@@ -181,8 +180,6 @@ const updateAddProduct = async (req, res) => {
       rating: req.body.pRating,
       image: files.map((x)=>x.filename),
     })
-    // console.log(req.body.pCategory)
-    // console.log(product)
     const productData = await product.save()
     if (productData) {
       res.render('addProduct', {
@@ -197,10 +194,6 @@ const updateAddProduct = async (req, res) => {
   }
 }
 
-
-
-
-
 const updateEditProduct = async (req, res) => {
   try {
     const id = req.body.id
@@ -209,11 +202,10 @@ const updateEditProduct = async (req, res) => {
     const price = req.body.pPrice
     const quantity = req.body.pQuantity
     const rating = req.body.pRating
+    const files=req.files
+    const image = files.map((x)=>x.filename)
 
-    if (req.files.destination) {
-      const files=req.files
-      const image = files.map((x)=>x.filename)
-
+    if (image.length==0) {
       await Product.updateOne(
         { _id:req.body.id },
         { 
@@ -223,7 +215,6 @@ const updateEditProduct = async (req, res) => {
             price,
             quantity,
             rating,
-            image,
           }
         }
       )
@@ -237,6 +228,7 @@ const updateEditProduct = async (req, res) => {
             price,
             quantity,
             rating,
+            image,
           }
         }
       )
@@ -248,34 +240,6 @@ const updateEditProduct = async (req, res) => {
   }
 }
      
-
-
-
-// const updateEditProduct = async (req, res) => {
-//   try {
-//     const files=req.files
-//     const productData = await Product.findByIdAndUpdate(
-//       { _id: req.body.id },
-//       {
-//         $set: {
-//           name: req.body.pName,
-//           category: req.body.pCategory,
-//           price: req.body.pPrice,
-//           quantity: req.body.pQuantity,
-//           rating: req.body.pRating,
-//           image: files.map((x)=>x.filename),
-//         }
-//       }
-//     )
-//     console.log(productData)
-//     await productData.save()
-//     console.log(productData)
-//     res.redirect('/admin/adminProduct')
-//   } catch (error) {
-//     console.log(error.message)
-//   }
-// }
-
 const blockProduct = async (req, res) => {
   try {
     const id = req.query.id
@@ -344,20 +308,6 @@ const insertCategory = async (req, res) => {
   }
 }
 
-// const blockUser = async (req, res) => {
-//   try {
-//     const id = req.query.id
-//     const userData = await User.findById({ _id: id })
-//     if (userData.is_verified) {
-//       await User.findByIdAndUpdate({ _id: id }, { $set: { is_verified: 0 } })
-//     } else {
-//       await User.findByIdAndUpdate({ _id: id }, { $set: { is_verified: 1 } })
-//     }
-//     res.redirect('/admin/adminUser')
-//   } catch (error) {
-//     console.log(error.message)
-//   }
-// }
 
 const manageCategory = async (req, res) => {
   try {
@@ -432,9 +382,7 @@ const loadBanners = async (req, res) => {
 const addBanner = async (req, res) => {
   try {
     const newBanner = req.body.banner
-    // console.log(newBanner)
     const a = req.files
-    // console.log(req.files)
     const banner = new Banner({
       banner: newBanner,
       bannerImage: a.map((x) => x.filename)
@@ -527,7 +475,6 @@ const adminOrderDetails = async(req,res)=>{
       await orderData.populate('userId')
  res.render('adminViewOrder',{
   order:orderData,
-  // layout: '../views/layout/adminLayout.ejs',
  })
   } catch (error) {
     console.log(error.message);
