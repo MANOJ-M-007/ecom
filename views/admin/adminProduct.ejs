@@ -75,7 +75,7 @@
         <div class="main-panel">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
-                  <div class="navbar-header">
+                  <div class="navbar-header d-flex">
                     <button type="button" class="navbar-toggle">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar bar1"></span>
@@ -97,18 +97,7 @@
                 </div>
               </nav>
 
-            <!-- <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="header">
-                                    <h4 class="title">List of Users Who are Signed In</h4>
-                                    
-                                </div>
-                                <div class="table-responsive upgrade-btn">
-                                    <table class="table v-middle table-striped"> -->
-
+            
             <div class="content">
                 <div class="container-fluid">
                     <div class="col-md-12">
@@ -121,7 +110,7 @@
                             </div>
 
                             
-                            
+                            <div class="table-responsive upgrade-btn">
                                 <table class="table table-hover" id="producttable"  >
                                     <thead>
                                         <tr>
@@ -197,7 +186,7 @@
 
                                     </tbody>
                                 </table>
-
+                            </div>
                             
                         </div>
                     </div>
@@ -206,7 +195,7 @@
             </div>
         </div>
     </div>
-    </div>
+    
     <script>
         $(document).ready( function () {
         $('#producttable').DataTable();
