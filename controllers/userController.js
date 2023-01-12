@@ -30,6 +30,7 @@ let nocoupon
 let nocouponPrice
 
 let newOtp
+let wempty
 
 
 const securePassword = async (password) => {
