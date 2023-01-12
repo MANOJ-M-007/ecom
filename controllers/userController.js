@@ -519,20 +519,12 @@ const loadWishlist = async (req, res) => {
     if (userSession.userId) {
       const userData = await User.findById({ _id: userSession.userId })
       const completeUser = await userData.populate('wishlist.item.productId')
-      if (userData.wishlist.item.length === 0) {
       res.render('wishlist', {
         isLoggedin,
         id: userSession.userId,
         wishlistProducts: completeUser.wishlist,
-        wempty: true,
+        // wempty: true,
       });
-    }else{
-      res.render('wishlist', {
-        isLoggedin,
-        id: userSession.userId,
-        wishlistProducts: completeUser.wishlist,
-        wempty: false,
-      });}
     } else {
       res.render('wishlist', { isLoggedin, id: userSession.userId })
     }

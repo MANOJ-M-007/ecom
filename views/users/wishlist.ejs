@@ -38,7 +38,6 @@
 
                 <tbody>
                     <% if(id) { %>
-                        <%if(wempty == false){%>
                     <% for(let key of wishlistProducts.item){ %>
                     <tr>
                         <td class="product-col">
@@ -62,12 +61,7 @@
                         </td>
                         <td class="remove-col"><button class="btn-remove"><a href="/deleteWishlist?id=<%= key.productId._id %>"><i class="icon-close"></i></button></a></td>
                     </tr>
-                    
-                    <% } }else{%>
-                        <tr>
-                            <td colspan="5"><h3> Wishlist is Empty</h3></td>
-                        </tr>
-                        <% } %>
+                    <% } %>
                         <% }else{ %>
                             <h4>Not Signed in. <br> Sign in now!!! </h4>
                             <a href="/login" class="btn btn-danger ml-2">login</a>
