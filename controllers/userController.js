@@ -15,8 +15,8 @@ const cors = require('cors')
 // const session = require('express-session')
 const { ObjectID } = require('bson')
 
-// let isLoggedin
-// isLoggedin = false
+let isLoggedin
+isLoggedin = false
 // let userSession = false || {}
 
 const offer = {
@@ -102,6 +102,7 @@ const insertuser = async (req, res) => {
       mobile: req.body.mno,
       password: spassword,
       is_admin: 0,
+      // is_verified: 1
     })
     const userData = await user.save()
     newUser = userData._id
@@ -140,7 +141,7 @@ const verifyLogin = async (req, res) => {
           } else {
             userSession = req.session
             userSession.userId = userData._id
-            // isLoggedin = true
+            isLoggedin = true
             res.redirect('/')
             console.log('logged in')
           }
@@ -193,8 +194,7 @@ const userDashboard = async (req, res) => {
     const userData = await User.findById({ _id: userSession.userId })
     const addressData = await Address.find({ userId: userSession.userId })
     res.render('dashboard', {
-      // 
-      id: userSession.userId,
+      isLoggedin,
       user: userData,
       userAddress: addressData,
       userOrders: orderData,
@@ -215,8 +215,7 @@ const viewOrder = async (req, res) => {
       const userData = await User.find({ id: userSession.userId })
       await orderData.populate('products.item.productId')
       res.render('viewOrder', {
-        // 
-        id: userSession.userId,
+        isLoggedin,
         order: orderData,
         user: userData
       })
@@ -326,10 +325,12 @@ const loadHome = async (req, res) => {
     const productData = await Product.find()
     
     res.render('home', {
-      // isLoggedin,
+      isLoggedin,
       banners,
+      // product,
       products: productData,
       id: userSession.userId
+
     })
   } catch (error) {
     console.log(error.message)
@@ -369,6 +370,7 @@ const loadShop = async (req, res) => {
 
     const categoryData = await Category.find({is_active: 1})
     const ID = req.query.id
+    // console.log(categoryData)
     const data = await Category.findOne({ _id: ID })
 
     if (data) {
@@ -376,8 +378,7 @@ const loadShop = async (req, res) => {
       console.log(productData)
       res.render('shop', {
         products: productData,
-        // isLoggedin,
-        id: userSession.userId,
+        isLoggedin,
         cat: categoryData,
         totalPages: Math.ceil(count / limit),
         currentPage: page,
@@ -387,7 +388,7 @@ const loadShop = async (req, res) => {
     } else {
       // const productData = await Product.find()
       res.render('shop', {
-        // isLoggedin,
+        isLoggedin,
         cat: categoryData,
         products: productData,
         id: userSession.userId,
@@ -405,14 +406,12 @@ const loadShop = async (req, res) => {
 // to see individual products
 const viewProduct = async (req, res) => {
   try {
-    userSession = req.session
     const id = req.query.id
     const products = await Product.find()
     const productData = await Product.findById({ _id: id })
     if (productData) {
       res.render('products', {
-        // isLoggedin,
-        id: userSession.userId,
+        isLoggedin,
         product: productData,
         products,
         userSession: userSession.userId
@@ -441,14 +440,14 @@ const loadCart = async (req, res) => {
       const completeUser = await userData.populate('cart.item.productId')
       if (userData.cart.item.length === 0) {
       res.render('cart', {
-        // isLoggedin,
+        isLoggedin,
         id: userSession.userId,
         cartProducts: completeUser.cart,
         empty: true,
       });
     } else {
       res.render('cart', {
-        // isLoggedin,
+        isLoggedin,
         id: userSession.userId,
         cartProducts: completeUser.cart,
         empty: false,
@@ -456,7 +455,7 @@ const loadCart = async (req, res) => {
     }
     } else {
       res.render('cart', {
-        // isLoggedin,
+        isLoggedin,
         id: userSession.userId,
       })
     }
@@ -521,22 +520,20 @@ const loadWishlist = async (req, res) => {
       const completeUser = await userData.populate('wishlist.item.productId')
       if (userData.wishlist.item.length === 0) {
       res.render('wishlist', {
-        // isLoggedin,
+        isLoggedin,
         id: userSession.userId,
         wishlistProducts: completeUser.wishlist,
-        empty: true,
+        wempty: true,
       });
     }else{
       res.render('wishlist', {
-        // isLoggedin,
+        isLoggedin,
         id: userSession.userId,
         wishlistProducts: completeUser.wishlist,
-        empty: false,
-      })}
+        wempty: false,
+      });}
     } else {
-      res.render('wishlist', { 
-        // isLoggedin, 
-        id: userSession.userId })
+      res.render('wishlist', { isLoggedin, id: userSession.userId })
     }
   } catch (error) {
     console.log(error.message)
@@ -642,7 +639,7 @@ const loadCheckout = async (req, res) => {
         userSession.couponTotal = userData.cart.totalPrice
       }
       res.render('checkout', {
-        // isLoggedin,
+        isLoggedin,
         id: userSession.userId,
         cartProducts: completeUser.cart,
         offer: userSession.offer,
@@ -656,7 +653,7 @@ const loadCheckout = async (req, res) => {
       nocouponPrice = false
     } else {
       res.render('checkout', {
-        // isLoggedin,
+        isLoggedin,
         id: userSession.userId
       })
     }
@@ -738,8 +735,7 @@ const storeOrder = async (req, res) => {
           res.redirect('/orderSuccess')
         }else if(req.body.payment == 'RazorPay'){
           res.render('razorpay',{
-            // 
-            id: userSession.userId,
+            isLoggedin,
             userId:userSession.userId,
             total:completeUser.cart.totalPrice})
         } else {

@@ -1,4 +1,4 @@
-<% if(id) { %>
+<% if(isLoggedin) { %>
     <%- include('../partials/userLoggedinHeader') %>
         <% }else { %>
             <%- include('../partials/userHeader') %>
@@ -200,7 +200,7 @@
                         <div class="mb-5"></div><!-- End .mb5 -->
                     </main><!-- End .main -->
 
-<% if(id) { %>
+<% if(isLoggedin) { %>
     <%- include('../partials/userLoggedinFooter') %>
         <% }else { %>
             <%- include('../partials/userFooter') %>
