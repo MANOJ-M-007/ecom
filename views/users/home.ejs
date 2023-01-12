@@ -1,4 +1,4 @@
-<% if(isLoggedin) { %>
+<% if(id) { %>
     <%- include('../partials/userLoggedinHeader') %>
         <% }else { %>
             <%- include('../partials/userHeader') %>
@@ -141,7 +141,7 @@
                                                         <figure class="product-media">
                                                             <span class="product-label label-primary">Sale</span>
                                                              
-                                                            <a href="product.html">
+                                                            <a href="/viewProduct?id=<%= key._id %>">
                                                                 <img src="/admin/assets/uploads/<%= key.image[0] %>"
                                                                     alt="Product image" class="product-image">
                                                             </a>
@@ -176,10 +176,11 @@
                                                             
    
                                                            <div class="product-action action-icon-top">
-                                                               <%if(key.stock==0){%>
+                                                               <%if(key.quantity==0){%>
                                                                    <a href="" class="btn-product icon-info-circle"><span>Out of Stock</span></a>
                                                                    <%  }else{%>
-                                                                       <button onclick="addToCart('<%=key._id%>')" class="btn-product btn-cart border-0 btn-outline-primary" > <span>add to cart</span></button>
+                                                                       <button onclick="addToCart('<%=key._id%>')" class="btn-product border-0 btn-outline-primary" > <span>add to cart</span></button>
+                                                                      <a href="/viewProduct?id=<%= key._id %>"> <button  class="btn-product border-0 btn-outline-primary" > <span>view product</span></button></a>
                                                                <%}%>
    
                                                                
@@ -199,7 +200,7 @@
                         <div class="mb-5"></div><!-- End .mb5 -->
                     </main><!-- End .main -->
 
-<% if(isLoggedin) { %>
+<% if(id) { %>
     <%- include('../partials/userLoggedinFooter') %>
         <% }else { %>
             <%- include('../partials/userFooter') %>

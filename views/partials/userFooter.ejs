@@ -160,7 +160,7 @@
     function addToWishlist(productId) {
         $.ajax({
           url: '/addToWishlist?id=' + productId,
-          method: 'POST',
+          method: 'GET',
           success: (response) => {
             if (response.status) {
               Swal.fire({
